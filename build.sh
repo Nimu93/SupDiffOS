@@ -2,15 +2,9 @@
 
 . ./config.sh
 
-cd $KERNEL_DIR
-make clean
-make 
-cd ..
-
-cd $LIBC_DIR
-make clean
-make
-cd ../../
+for PROJECT in $PROJECTS; do
+    (cd $PROJECT && make )
+done
 
 mkdir -p $BUILD_DIR
 cp $KERNEL_DIR/$KERNEL_BIN $BUILD_DIR/$KERNEL_BIN

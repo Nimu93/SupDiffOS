@@ -6,6 +6,13 @@ KERNEL_SRC = kernel.c init_k.c terminal.c
 KERNEL_OBJ = $(KERNEL_SRC:%.c=%.o)
 KERNEL_BIN = supdiff.bin
 
+LIBC_PATH = ../libs/libc/lib
+LIBC = $(LIBC_PATH)/libc.a 
+
+LIBK_PATH = ../libs/libk/lib
+LIBK = $(LIBK_PATH)/libk.a 
+
+
 LINKER=../linker.ld
 
 CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra
@@ -15,13 +22,12 @@ LDFLAGS = -T $(LINKER) -ffreestanding -O2 -nostdlib -lgcc -L ../libs/libc/lib -l
 BOOT_SRC = ../boot.s
 BOOT_OBJ = boot.o
 
-$(KERNEL_BIN): $(BOOT_OBJ) $(KERNEL_OBJ)
+$(KERNEL_BIN): $(BOOT_OBJ) $(KERNEL_OBJ) $(LIBK)
 	$(LD) $(LDFLAGS) -o $@ $^
 
 $(BOOT_OBJ): $(BOOT_SRC)
 	$(AS) $< -o $@
 
-# Compilation des fichiers sources du noyau
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 

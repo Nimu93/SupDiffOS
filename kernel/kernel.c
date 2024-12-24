@@ -1,7 +1,5 @@
-#include <stddef.h>
-
 #include "terminal.h"
-
+#include "init_k.h"
 /* Check if the compiler thinks you are targeting the wrong operating system. */
 #if defined(__linux__)
 #error "You are not using a cross-compiler, you will most certainly run into trouble"
@@ -15,9 +13,6 @@
 
 void kernel_main(void) 
 {
-	/* Initialize terminal interface */
-	terminal_initialize();
-
-	for (size_t i = 0; i < 100; i++)
-	terminal_writestring("Test\n");
+	init_drivers();
+	print_welcome_message();
 }

@@ -1,5 +1,6 @@
 #include "terminal.h"
 
+
 /* Hardware text mode color constants. */
 static inline uint8_t vga_entry_color(enum vga_color fg, enum vga_color bg) 
 {
@@ -21,6 +22,9 @@ size_t strlen(const char* str)
 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
+
+int cursor_x = 0;
+int cursor_y = 0;
 
 size_t terminal_row;
 size_t terminal_column;
