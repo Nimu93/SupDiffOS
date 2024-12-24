@@ -5,34 +5,16 @@ LD = i686-elf-gcc
 GRUB_MKRESCUE = grub-mkrescue
 QEMU = qemu-system-i386
 
-CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -I kernel/includes/
-LDFLAGS = -T linker.ld -ffreestanding -O2 -nostdlib -lgcc
+KERNEL_SRC_DIR=kernel
+
 
 # Répertoires et fichiers
-KERNEL_SRC_DIR = kernel
-KERNEL_SRC = $(wildcard $(KERNEL_SRC_DIR)/*.c)
-KERNEL_OBJ = $(KERNEL_SRC:$(KERNEL_SRC_DIR)/%.c=$(KERNEL_SRC_DIR)/%.o)
-BOOT_SRC = boot.s
-BOOT_OBJ = boot.o
+
+
 KERNEL_BIN = myos.bin
 ISO_DIR = isodir
 ISO_FILE = myos.iso
 GRUB_CFG = grub.cfg
-
-# Cible par défaut
-all: $(ISO_FILE)
-
-# Compilation du bootloader
-$(BOOT_OBJ): $(BOOT_SRC)
-	$(AS) $< -o $@
-
-# Compilation des fichiers sources du noyau
-$(KERNEL_SRC_DIR)/%.o: $(KERNEL_SRC_DIR)/%.c
-	$(CC) -c $< -o $@ $(CFLAGS)
-
-# Création de l'exécutable final
-$(KERNEL_BIN): $(BOOT_OBJ) $(KERNEL_OBJ)
-	$(LD) $(LDFLAGS) -o $@ $^ -lgcc
 
 # Création de l'ISO
 $(ISO_FILE): $(KERNEL_BIN) $(GRUB_CFG)
