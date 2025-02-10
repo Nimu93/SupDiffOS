@@ -14,5 +14,8 @@
 void kernel_main(void) 
 {
 	init_drivers();
-	print_welcome_message();
+	uint32_t *ptr = (uint32_t *)0xDEADBEEF;
+    *ptr = 42;
+	//print_welcome_message();
+
 }

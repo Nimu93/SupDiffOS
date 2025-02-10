@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "asm_io.h"
 
 // Enumération des couleurs
 enum vga_color {
@@ -24,7 +25,6 @@ enum vga_color {
     VGA_COLOR_WHITE = 15,
 };
 
-// Déclarations des fonctions
 void terminal_initialize(void);
 void terminal_setcolor(uint8_t color);
 void terminal_putchar(char c);

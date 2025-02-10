@@ -7,6 +7,12 @@ int init_drivers(void)
 {
     // Initialize the terminal
     terminal_initialize();
+    // Initialize GDT
+    gdt_init();
+    // Initialize ISR
+    idt_init();
+    // Initialize paging
+    init_paging();
     return 0;
 }
 

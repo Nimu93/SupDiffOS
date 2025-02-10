@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include "terminal.h"
 #include "asm_io.h"
+#include "isr.h"
+#include "memory.h"
+#include "gdt.h"
 
 int init_drivers();
 
