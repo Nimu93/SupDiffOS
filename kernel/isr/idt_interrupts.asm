@@ -1,16 +1,43 @@
+isr_common_stub:
+    pusha
+    push ds
+    push es
+    push fs
+    push gs
+    mov ax, 0x10   ; Load the Kernel Data Segment descriptor!
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov eax, esp   ; Push us the stack
+    push eax
+    mov eax, exception_handler
+    call eax       ; A special call, preserves the 'eip' register
+    pop eax
+    pop gs
+    pop fs
+    pop es
+    pop ds
+    popa
+    add esp, byte 8     ; Cleans up the pushed error code and pushed ISR number
+    iret 
+
 %macro isr_err_stub 1
 isr_stub_%+%1:
-    call exception_handler
-    iret 
+    push byte %1
+    jmp isr_common_stub
 %endmacro
-; if writing for 64-bit, use iretq instead
+
 %macro isr_no_err_stub 1
 isr_stub_%+%1:
-    call exception_handler
-    iret
+    push byte 0
+    push byte %1
+    jmp isr_common_stub
 %endmacro
 
 extern exception_handler
+extern exception_handler_no_err
+
 isr_no_err_stub 0
 isr_no_err_stub 1
 isr_no_err_stub 2
@@ -48,6 +75,6 @@ global isr_stub_table
 isr_stub_table:
 %assign i 0 
 %rep    32 
-    dd isr_stub_%+i ; use DQ instead if targeting 64-bit
+    dd isr_stub_%+i
 %assign i i+1 
 %endrep

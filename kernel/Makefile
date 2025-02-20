@@ -3,7 +3,7 @@ AS = i686-elf-as
 LD = i686-elf-gcc
 NASM = nasm
 
-KERNEL_SRC = kernel.c init_k.c terminal.c memory/memory.c isr/isr.c gdt/gdt.c
+KERNEL_SRC = kernel.c init_k.c terminal.c memory/memory.c isr/isr.c gdt/gdt.c isr/idt.c
 KERNEL_OBJ = $(KERNEL_SRC:%.c=%.o)
 KERNEL_BIN = supdiff.bin
 
@@ -18,7 +18,7 @@ LIBK = $(LIBK_PATH)/libk.a
 
 LINKER=../linker.ld
 
-CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -g
 CPPFLAGS = -D__is_kernel -I includes/ -I ../libs/libc/includes/
 LDFLAGS = -T $(LINKER) -ffreestanding -O2 -nostdlib -lgcc -L ../libs/libc/lib -lc
 

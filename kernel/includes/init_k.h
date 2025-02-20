@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "terminal.h"
 #include "asm_io.h"
-#include "isr.h"
+#include "idt.h"
 #include "memory.h"
 #include "gdt.h"
 

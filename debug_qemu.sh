@@ -2,4 +2,4 @@
 
 . ./iso.sh
 
-qemu-system-i386 -cdrom $ISODIR/supdiff.iso -s -S
+qemu-system-i386 -d int -cdrom $ISODIR/supdiff.iso -s -S

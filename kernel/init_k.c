@@ -9,7 +9,7 @@ int init_drivers(void)
     terminal_initialize();
     // Initialize GDT
     gdt_init();
-    // Initialize ISR
+    // Initialize IDT
     idt_init();
     // Initialize paging
     init_paging();
