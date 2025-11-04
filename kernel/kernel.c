@@ -15,21 +15,12 @@
 void kernel_main(void) 
 {
 	init_drivers();
-	uint32_t *ptr = (uint32_t *)0xDEADBEEF;
+	//uint32_t *ptr = (uint32_t *)0xDEADBEEF;
 	//align on 4KB boundary
 	    /* Test the interrupts */
 		//__asm__ __volatile__("int $2");
 		//__asm__ __volatile__("int $14");
 	//allocate_page(ptr);
 	printf("Continue after dereferencing\n");
-	//*ptr = 42;
-	//uint32_t *ptr2 = (uint32_t *)0xDEADDEAD;
-
-	//*ptr2= 43;
-	//printf("%d", *ptr);
-	int new;
-	new = 500 / 0;
-	//printf("%d", new);
-	//print_welcome_message();
-
+	for(;;);
 }

@@ -1,8 +1,10 @@
 {
     "files.associations": {
+        ".als.json": "jsonc",
         "stddef.h": "c",
         "stdarg.h": "c",
-        "isr.h": "c"
+        "isr.h": "c",
+        "irq.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

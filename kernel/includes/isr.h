@@ -9,21 +9,18 @@
 
 #include "memory.h"
 
-typedef struct {
-    unsigned int gs, fs, es, ds;      /* pushed the segs last */
-    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;  /* pushed by 'pusha' */
-    unsigned int int_no, err_code;    /* our 'push byte #' and ecodes do this */
-    unsigned int eip, cs, eflags, useresp, ss; /* Pushed by the processor automatically */
- } registers_t;
+#include "data_idt.h"	
 
-	
+#include "idt.h"
 
-static void (*exceptionFunctions[32])(registers_t *registers) = {NULL}; 
+void gpf_handler(registers_t* regs);
 
-void exception_handler(registers_t* registers);
+void page_fault_handler(registers_t* registers);
 
-void exception_handler_no_err(registers_t* registers);
+void double_fault_handler(registers_t* regs);
 
-void isr_init(void);
+void invalid_opcode_handler(registers_t* registers);
+
+void control_protection_handler(registers_t* regs);
 
 #endif

@@ -3,12 +3,12 @@ AS = i686-elf-as
 LD = i686-elf-gcc
 NASM = nasm
 
-KERNEL_SRC = kernel.c init_k.c terminal.c memory/memory.c isr/isr.c gdt/gdt.c isr/idt.c
+KERNEL_SRC = kernel.c init_k.c terminal.c memory/memory.c idt/isr.c gdt/gdt.c idt/idt.c pic/pic.c idt/irq.c drivers/keyboard.c
 KERNEL_OBJ = $(KERNEL_SRC:%.c=%.o)
 KERNEL_BIN = supdiff.bin
 
-KERNEL_ASM_SRC = isr/idt_interrupts.asm memory/enable_paging.asm
-KERNEL_ASM_OBJ = $(KERNEL_ASM_SRC:%.asm=%.o)  # ✅ Correction ici
+KERNEL_ASM_SRC = idt/idt_interrupts.asm memory/enable_paging.asm
+KERNEL_ASM_OBJ = $(KERNEL_ASM_SRC:%.asm=%.o)
 
 LIBC_PATH = ../libs/libc/lib
 LIBC = $(LIBC_PATH)/libc.a 
@@ -31,7 +31,7 @@ $(KERNEL_BIN): $(BOOT_OBJ) $(KERNEL_OBJ) $(LIBK) $(LIBC) $(KERNEL_ASM_OBJ)
 $(BOOT_OBJ): $(BOOT_SRC)
 	$(AS) $< -o $@
 
-%.o: %.asm  # ✅ Nouvelle règle pour assembler chaque fichier séparément
+%.o: %.asm
 	$(NASM) -f elf32 $< -o $@
 
 %.o: %.c
