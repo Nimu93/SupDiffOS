@@ -2,6 +2,31 @@
 
 static bool shift_pressed = false;
 
+static char *ch_buffer;
+static size_t ch_buffer_index;
+
+void init_keyboard() {
+    ch_buffer = (char*)kmalloc(KEYBOARD_BUFFER_SIZE);
+    memset(ch_buffer, 0, KEYBOARD_BUFFER_SIZE);
+    ch_buffer_index = 0;
+}
+
+char get_char() {
+    if (ch_buffer_index == 0) {
+        return 0; // Buffer is empty
+    }
+    char c = ch_buffer[0];
+    // Shift buffer contents to the left
+    memmove(ch_buffer, ch_buffer + 1, ch_buffer_index - 1);
+    ch_buffer_index--;
+    return c;
+}
+
+void fill_buffer(char c) {
+    if (ch_buffer_index < KEYBOARD_BUFFER_SIZE - 1) {
+        ch_buffer[ch_buffer_index++] = c;
+    }
+}
 void get_keyboard(uint8_t scancode) {
      if (scancode & 0x80) {
         if (scancode == 0xAA || scancode == 0xB6)
@@ -21,17 +46,7 @@ void get_keyboard(uint8_t scancode) {
     if (c) {
         if (shift_pressed && c >= 'a' && c <= 'z')
             c -= 32; // majuscule
-
-        if (c == '\n')
-            printf("Key pressed: Enter\n");
-        else if (c == '\b')
-            printf("Key pressed: Backspace\n");
-        else if (c == '\t')
-            printf("Key pressed: Tab\n");
-        else if (c == ' ')
-            printf("Key pressed: Space\n");
-        else
-            printf("Key pressed: %c\n", c);
+        fill_buffer(c);
     } else {
         printf("Unknown scancode: 0x%x\n", scancode);
     }

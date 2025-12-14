@@ -2,9 +2,12 @@
 #define KEYBOARD_H
 
 #include "asm_io.h"
+#include "kheap.h"
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 static const char scancode_to_ascii[128] = {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b', // 0x00–0x0E
@@ -14,6 +17,10 @@ static const char scancode_to_ascii[128] = {
     0, ' ', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                          // 0x37–0x46
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0                            // 0x47–0x7F
 };
+
+#define KEYBOARD_BUFFER_SIZE 256
+
+void init_keyboard();
 
 void get_keyboard(uint8_t scancode);
 

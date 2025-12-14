@@ -15,6 +15,8 @@ void init_paging(void);
 extern void loadPageDirectory(long unsigned int*);
 extern void enablePaging();
 void *allocate_page(void* fault_addr);
+void map_page(void *physaddr, void *virtualaddr, unsigned int flags);
+uint32_t alloc_physpage();
 
 extern uint32_t endkernel;
 

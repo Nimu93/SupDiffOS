@@ -43,8 +43,9 @@ void map_page(void *physaddr, void *virtualaddr, unsigned int flags) {
 
     // Allocate a new page table if the PDE is not present
     if (!(page_directory[pdindex] & 0x1)) {
-        memset(physaddr, 0, PAGE_SIZE); // Initialize to 0
-        page_directory[pdindex] = (uint32_t)physaddr | flags | 0x1;
+        uint32_t new_pt_phys = alloc_physpage();      // physical page for the page table itself
+        memset((void*)new_pt_phys, 0, PAGE_SIZE);     // zero the new page table (identity mapped)
+        page_directory[pdindex] = new_pt_phys | flags | 0x1;
     }
 
     // Get the page table

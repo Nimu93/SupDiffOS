@@ -11,16 +11,12 @@
 #endif
 
 #include "memory.h"
+#include "multitasking.h"
 
 void kernel_main(void) 
 {
 	init_drivers();
-	//uint32_t *ptr = (uint32_t *)0xDEADBEEF;
-	//align on 4KB boundary
-	    /* Test the interrupts */
-		//__asm__ __volatile__("int $2");
-		//__asm__ __volatile__("int $14");
-	//allocate_page(ptr);
-	printf("Continue after dereferencing\n");
+	printf("Kernel initialized successfully!\n");
+	init_multitasking();
 	for(;;);
 }
