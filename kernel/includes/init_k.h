@@ -8,6 +8,7 @@
 #include "idt.h"
 #include "memory.h"
 #include "gdt.h"
+#include "timer.h"
 
 int init_drivers();
 

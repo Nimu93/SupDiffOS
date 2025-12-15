@@ -16,7 +16,7 @@ void keyboard_handler(registers_t* regs) {
 
 void timer_handler(registers_t* regs) {
 
-
-    // Toujours envoyer un EOI (End of Interrupt) au PIC
+    // Toujours envoyer un EOI (End of Interrupt) avant de potentiellement basculer
     outb(0x20, 0x20);
+    handle_timer();
 }

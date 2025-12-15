@@ -4,7 +4,7 @@ LD = i686-elf-gcc
 NASM = nasm
 
 KERNEL_SRC = kernel.c init_k.c drivers/terminal.c memory/memory.c idt/isr.c gdt/gdt.c idt/idt.c pic/pic.c idt/irq.c drivers/keyboard.c idt/timer.c multitasking/multitasking.c
-KERNEL_SRC += memory/kheap.c structs/circular_linked_list.c
+KERNEL_SRC += memory/kheap.c structs/circular_linked_list.c structs/linked_list.c
 KERNEL_OBJ = $(KERNEL_SRC:%.c=%.o)
 KERNEL_BIN = supdiff.bin
 

@@ -37,7 +37,6 @@ void get_keyboard(uint8_t scancode) {
     }
 
     if (scancode == 0x2A || scancode == 0x36) {
-        printf("Shift key pressed\n");
         shift_pressed = true;
         goto end;
     }

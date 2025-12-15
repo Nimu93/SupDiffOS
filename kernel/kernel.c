@@ -13,10 +13,18 @@
 #include "memory.h"
 #include "multitasking.h"
 
+void idle_task(void) {
+	for (;;) {
+		printf("idle task");
+		asm volatile("hlt");
+	}
+}
+
 void kernel_main(void) 
 {
 	init_drivers();
 	printf("Kernel initialized successfully!\n");
 	init_multitasking();
+	task_create(idle_task);
 	for(;;);
 }

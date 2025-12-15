@@ -13,6 +13,8 @@ int init_drivers(void)
     idt_init();
     // Initialize paging
     init_paging();
+    // Initialize timer
+    init_timer();
     return 0;
 }
 

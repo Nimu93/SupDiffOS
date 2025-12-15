@@ -3,7 +3,7 @@
 
 #include "idt.h"
 #include "keyboard.h"
-
+#include "timer.h"
 void enable_interrupts();
 
 void disable_interrupts();

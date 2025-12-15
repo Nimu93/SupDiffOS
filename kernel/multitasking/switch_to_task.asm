@@ -7,6 +7,7 @@ struc TCB
     .ESP0:  resd 1    ; 4  -> void *esp0
     .VIRT_ADDR:   resd 1    ; 8 -> void *virt_addr
     .NEXT:  resd 1    ; 12 -> struct thread_control_block *next
+    .TIME_SPENT: resd 1
     .STATE: resd 1    ; 16 -> enum THREAD_STATE state
 endstruc
 ; TCB_size équivaut à 20 octets
