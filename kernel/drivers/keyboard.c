@@ -1,4 +1,4 @@
-#include "keyboard.h"
+#include "drivers/keyboard.h"
 
 static bool shift_pressed = false;
 

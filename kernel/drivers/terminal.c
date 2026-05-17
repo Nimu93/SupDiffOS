@@ -1,4 +1,4 @@
-#include "terminal.h"
+#include "drivers/terminal.h"
 
 
 void disable_cursor(void) {

@@ -3,12 +3,17 @@ AS = i686-elf-as
 LD = i686-elf-gcc
 NASM = nasm
 
-KERNEL_SRC = kernel.c init_k.c drivers/terminal.c memory/memory.c idt/isr.c gdt/gdt.c idt/idt.c pic/pic.c idt/irq.c drivers/keyboard.c idt/timer.c multitasking/multitasking.c
-KERNEL_SRC += memory/kheap.c structs/circular_linked_list.c structs/linked_list.c
+KERNEL_SRC = kernel.c init/init_k.c
+KERNEL_SRC += arch/x86/gdt.c arch/x86/idt.c arch/x86/irq.c arch/x86/isr.c arch/x86/pic.c arch/x86/timer.c
+KERNEL_SRC += drivers/terminal.c drivers/keyboard.c
+KERNEL_SRC += mm/memory.c mm/kheap.c
+KERNEL_SRC += sched/scheduler.c sched/thread.c sched/process.c
+KERNEL_SRC += lib/circular_linked_list.c lib/linked_list.c
+KERNEL_SRC += syscall/syscall.c
 KERNEL_OBJ = $(KERNEL_SRC:%.c=%.o)
 KERNEL_BIN = supdiff.bin
 
-KERNEL_ASM_SRC = idt/idt_interrupts.asm memory/enable_paging.asm multitasking/switch_to_task.asm
+KERNEL_ASM_SRC = arch/x86/idt_interrupts.asm arch/x86/switch_to_task.asm mm/enable_paging.asm
 KERNEL_ASM_OBJ = $(KERNEL_ASM_SRC:%.asm=%.o)
 
 LIBC_PATH = ../libs/libc/lib
